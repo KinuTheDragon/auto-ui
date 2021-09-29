@@ -68,6 +68,7 @@ Python commands:
 	* Everything imported from tkinter (effectively "from tkinter import *")
 	* screen: The window used
 	* blank: A blank 1x1 image (useful for setting width and height)
+	* widget_frame: The frame where widgets go
 	* All named widgets
 	* All defined variables
 
