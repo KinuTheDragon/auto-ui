@@ -1,0 +1,76 @@
+AUI (Automatic UI) is a language to generate simple UIs.
+
+Syntax:
+	[<variable>=]<widget name> @ (<page>,<row>,<col>): {<data>}
+	Create a widget.
+	Parameters:
+		<variable>: The variable to assign the widget to.
+		<widget name>: The tkinter widget name (e.g. Checkbutton).
+		<page>: The page for this to appear on (0-based).
+		<row>: The row for this to appear in (0-based).
+		<col>: The column for this to appear in (0-based).
+		<data>: JSON data for initializing the object.
+	Example:
+		Checkbutton @ (0,0,0) {"text": "Example", "variable": %ticked, "command": &update}
+	
+	#<overall title>
+	Set the overall title.
+	Parameters:
+		<overall title>: The overall title. Displayed as the window title and above the widgets.
+	Example:
+		#Example title
+	
+	#<page>#<page title>
+	Set a page's title.
+	Parameters:
+		<page>: The page number (0-based).
+		<page title>: The page's title. If this line doesn't appear for a given page, it will be empty.
+	Example:
+		#0#This is the first page
+	
+	$<name>
+	A string variable (never used on its own).
+	Parameters:
+		<name>: The variable name.
+	Example:
+		Radiobutton @ (0,0,0): {"text": "Test", "value": "Test value", "variable": $test_var}
+	
+	%<name>
+	An integer variable (never used on its own).
+	Parameters:
+		<name>: The variable name.
+	Example:
+		Radiobutton @ (0,0,0): {"text": "Test", "value": 2, "variable": %test_var}
+	
+	&<name>
+	A command.
+	Parameters:
+		<name>: The command name (defined in the commands file). When not on its own, this represents the command object; otherwise, it calls the command on startup.
+	Example:
+		Button @ (0,0,0) {"text": "Submit", "command": &submit}
+		OR
+		&setup
+	
+	$<name>:<value> OR %<name>:<value>
+	Assign a default value to a variable.
+	Parameters:
+		<name>: The variable name.
+		<value>: The value to assign. If the variable is a string variable, this will be used verbatim. Otherwise, it will be parsed as an integer.
+	Example:
+		$firstname:John
+		OR
+		%ticked:1
+
+Python commands:
+	The commands .py file defines the functions used in the .aui file.
+	They take no parameters.
+	Predefined variables:
+	* Everything imported from tkinter (effectively "from tkinter import *")
+	* screen: The window used
+	* blank: A blank 1x1 image (useful for setting width and height)
+	* All named widgets
+	* All defined variables
+
+Use:
+	The AUI converter takes a .aui file as source code, a .py file as commands, and a .ico file as an icon.
+	It outputs a .py file that can be run on its own to simulate the AUI source.
